@@ -167,7 +167,7 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 		if err != nil {
 			log.Printf("Name() error: %v", err)
 			continue
-			label := ""
+			label := "none"
 		}
 
 		totalMemory, usedMemory, err := dev.MemoryInfo()
