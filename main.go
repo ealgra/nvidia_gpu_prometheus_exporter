@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"log"
-  "os"
+	"os"
 	"net/http"
 	"strconv"
 	"sync"
@@ -162,12 +162,12 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 			log.Printf("Name() error: %v", err)
 			continue
 		}
-    
-    label, err := os.Getenv("ADDITIONAL_LABEL")
+
+		label, err := os.Getenv("ADDITIONAL_LABEL")
 		if err != nil {
 			log.Printf("Name() error: %v", err)
 			continue
-      label := ""
+			label := ""
 		}
 
 		totalMemory, usedMemory, err := dev.MemoryInfo()
