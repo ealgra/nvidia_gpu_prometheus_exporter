@@ -137,6 +137,8 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 		ch <- c.numDevices
 	}
 
+	label := os.Getenv("ADDITIONAL_LABEL")
+
 	for i := 0; i < int(numDevices); i++ {
 		dev, err := gonvml.DeviceHandleByIndex(uint(i))
 		if err != nil {
@@ -162,8 +164,6 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 			log.Printf("Name() error: %v", err)
 			continue
 		}
-
-		label := os.Getenv("ADDITIONAL_LABEL")
 
 		totalMemory, usedMemory, err := dev.MemoryInfo()
 		if err != nil {
