@@ -22,6 +22,8 @@ var (
 	addr = flag.String("web.listen-address", ":9445", "Address to listen on for web interface and telemetry.")
 
 	labels = []string{"minor_number", "uuid", "name", "label"}
+	
+	label = os.Getenv("ADDITIONAL_LABEL")
 )
 
 type Collector struct {
@@ -137,8 +139,6 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 		ch <- c.numDevices
 	}
 
-	label := os.Getenv("ADDITIONAL_LABEL")
-
 	for i := 0; i < int(numDevices); i++ {
 		dev, err := gonvml.DeviceHandleByIndex(uint(i))
 		if err != nil {
@@ -230,6 +230,7 @@ func main() {
 	} else {
 		log.Printf("SystemDriverVersion(): %v", driverVersion)
 	}
+	log.Printf("Additing ADDITIONAL_LABEL from environment: %s", label)
 
 	prometheus.MustRegister(NewCollector())
 
