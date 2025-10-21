@@ -1,7 +1,7 @@
 FROM golang as build
-RUN go get github.com/ealgra/nvidia_gpu_prometheus_exporter
+RUN go install github.com/ealgra/nvidia_gpu_prometheus_exporter@latest
 
-FROM ubuntu:18.04
+FROM alpine:3
 COPY --from=build /go/bin/nvidia_gpu_prometheus_exporter /
 CMD /nvidia_gpu_prometheus_exporter
 ENV NVIDIA_VISIBLE_DEVICES=all
